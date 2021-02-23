@@ -1,1 +1,17 @@
-<p>setup works!</p>
+<h1>Hey there!</h1>
+You need to setup the server control before first use!
+<br /><br />
+Please tell me your IONOS API-Key so that I can search for controllable servers!
+<br /><br />
+<form [formGroup]="ionosApiKeyForm">
+    <mat-form-field appearance="outline">
+        <mat-label>IONOS API-Key</mat-label>
+        <input matInput type="text" placeholder="IONOS API-Key" formControlName="ionosApiKey" />
+        <mat-error *ngIf="ionosApiKeyForm.get('ionosApiKey')?.errors?.required">
+            An API-Key has to be filled in!
+        </mat-error>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button type="submit" color="primary" [disabled]="!ionosApiKeyForm.valid"
+        (click)="submitApiKeyForm()">Save!</button>
+</form>

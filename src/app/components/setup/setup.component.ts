@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-setup',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SetupComponent implements OnInit {
 
-  constructor() { }
+  public ionosApiKeyForm: FormGroup;
+
+  constructor(formBuilder: FormBuilder) {
+    this.ionosApiKeyForm = formBuilder.group({
+      ionosApiKey: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
   }
+
+  public submitApiKeyForm(): void { }
 
 }
