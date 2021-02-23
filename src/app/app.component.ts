@@ -6,10 +6,10 @@ import { AppService } from './core/app-service/app.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Ionos Server Control';
+  title = 'IONOS Server Control';
 
   constructor(
     private appService: AppService,
@@ -22,6 +22,9 @@ export class AppComponent {
   }
 
   private openSetupBottomSheet(): void {
-    this.bottomSheet.open(SetupComponent);
+    let bottomSheetRef = this.bottomSheet.open(SetupComponent);
+    bottomSheetRef.afterDismissed().subscribe(() => {
+      // Do sth when setup finished
+    });
   }
 }
