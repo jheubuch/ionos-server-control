@@ -6,11 +6,10 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppService } from './core/app-service/app.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  constructor(private appService: AppService) {}
+  constructor() {}
 
   intercept(
     req: HttpRequest<any>,
@@ -19,7 +18,7 @@ export class ApiInterceptor implements HttpInterceptor {
     req = req.clone({
       headers: req.headers.set(
         'X-TOKEN',
-        this.appService.ionosApiKey.value as string
+        localStorage.getItem('IONOS-API-KEY') as string
       ),
     });
 

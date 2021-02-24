@@ -28,12 +28,12 @@ export class SetupComponent implements OnInit {
 
   public submitApiKeyForm(): void {
     this.ionosApiKeyForm.disable();
-    this.appService.setIonosApiKey(
-      this.ionosApiKeyForm.get('ionosApiKey')?.value
-    );
+    const apiKey = this.ionosApiKeyForm.get('ionosApiKey')?.value;
+    this.appService.setIonosApiKey(apiKey);
     this.ionosApiService.checkConnection().subscribe({
       next: () => {
         this.bottomSheetRef.dismiss();
+        this.appService.setIonosApiKeyAndNotify(apiKey);
       },
       error: (httpError) => {
         this.appService.removeIonosApiKey();
