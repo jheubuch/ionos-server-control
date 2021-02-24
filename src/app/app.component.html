@@ -1,10 +1,5 @@
 <mat-toolbar color="primary">{{ title }}</mat-toolbar>
 <div class="page-body">
-  <h1 style="text-align: center">
-    At the moment there is no other functionality as setting up API
-    connection.<br />Please come again later.
-  </h1>
-  <br /><br />
   <div style="text-align: center" *ngIf="!ionosApiKey">
     You did not set up API connection yet! <br /><br />
     <button mat-raised-button color="primary" (click)="openSetupBottomSheet()">
@@ -16,6 +11,54 @@
     <button mat-raised-button color="primary" (click)="openSetupBottomSheet()">
       Set up again!
     </button>
+  </div>
+  <div *ngIf="servers.length > 0">
+    <br /><br />
+    <mat-divider></mat-divider>
+    <br /><br />
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Servers</mat-card-title>
+        <mat-card-subtitle>See and manage your servers.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-table [dataSource]="servers">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Server name</mat-header-cell>
+            <mat-cell *matCellDef="let server">{{ server.name }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+            <mat-cell *matCellDef="let server">{{
+              server.description
+            }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef>Power state</mat-header-cell>
+            <mat-cell *matCellDef="let server">
+              <button
+                mat-flat-button
+                [ngClass]="server.status.state"
+                [matTooltip]="
+                  server.status.state === 'POWERED_OFF'
+                    ? 'Power on'
+                    : 'Power off'
+                "
+              >
+                {{
+                  server.status.state === "POWERED_OFF" ? "OFFLINE" : "ONLINE"
+                }}
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="columsToDisplay"></mat-header-row>
+          <mat-row
+            *matRowDef="let myRowData; columns: columsToDisplay"
+          ></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
   </div>
   <router-outlet></router-outlet>
 </div>

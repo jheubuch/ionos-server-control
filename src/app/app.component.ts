@@ -14,6 +14,7 @@ export class AppComponent {
   title = 'IONOS Server Control';
   ionosApiKey: string | null = null;
   servers: IServer[] = [];
+  columsToDisplay = ['name', 'description', 'state'];
 
   constructor(
     private appService: AppService,

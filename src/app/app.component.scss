@@ -1,3 +1,15 @@
 .page-body {
     padding: 30px;
 }
+
+.POWERED_OFF {
+    background: red;
+}
+
+.POWERED_ON {
+    background: green;
+}
+
+.POWERING_ON, .POWERING_OFF {
+    background: yellow;
+}
