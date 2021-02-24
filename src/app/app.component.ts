@@ -10,19 +10,22 @@ import { AppService } from './core/app-service/app.service';
 })
 export class AppComponent {
   title = 'IONOS Server Control';
+  ionosApiKey: string | null = null;
 
   constructor(
     private appService: AppService,
     private bottomSheet: MatBottomSheet
   ) {
-    let apiKey = this.appService.getIonosApiKey();
-    if (apiKey === null) {
+    this.appService.ionosApiKey.subscribe((key) => {
+      this.ionosApiKey = key;
+    });
+    if (this.ionosApiKey === null) {
       this.openSetupBottomSheet();
     }
   }
 
-  private openSetupBottomSheet(): void {
-    let bottomSheetRef = this.bottomSheet.open(SetupComponent);
+  public openSetupBottomSheet(): void {
+    const bottomSheetRef = this.bottomSheet.open(SetupComponent);
     bottomSheetRef.afterDismissed().subscribe(() => {
       // Do sth when setup finished
     });

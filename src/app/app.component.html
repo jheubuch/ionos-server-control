@@ -4,5 +4,18 @@
     At the moment there is no other functionality as setting up API
     connection.<br />Please come again later.
   </h1>
+  <br /><br />
+  <div style="text-align: center" *ngIf="!ionosApiKey">
+    You did not set up API connection yet! <br /><br />
+    <button mat-raised-button color="primary" (click)="openSetupBottomSheet()">
+      Set up!
+    </button>
+  </div>
+  <div style="text-align: center" *ngIf="ionosApiKey">
+    You already set up API connection with key '{{ ionosApiKey }}'!<br /><br />
+    <button mat-raised-button color="primary" (click)="openSetupBottomSheet()">
+      Set up again!
+    </button>
+  </div>
   <router-outlet></router-outlet>
 </div>

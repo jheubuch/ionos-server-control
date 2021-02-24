@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -34,10 +35,17 @@ export class SetupComponent implements OnInit {
       next: () => {
         this.bottomSheetRef.dismiss();
       },
-      error: (error) => {
+      error: (httpError) => {
         this.appService.removeIonosApiKey();
         this.ionosApiKeyForm.enable();
-        this.ionosApiKeyForm.get('ionosApiKey')?.setErrors({ apiError: true });
+        if (
+          httpError instanceof HttpErrorResponse &&
+          httpError.status === 401
+        ) {
+          this.ionosApiKeyForm
+            .get('ionosApiKey')
+            ?.setErrors({ apiError: true });
+        }
       },
       complete: () => {
         this.ionosApiKeyForm.enable();

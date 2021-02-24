@@ -19,7 +19,7 @@ export class ApiInterceptor implements HttpInterceptor {
     req = req.clone({
       headers: req.headers.set(
         'X-TOKEN',
-        this.appService.getIonosApiKey() as string
+        this.appService.ionosApiKey.value as string
       ),
     });
 
